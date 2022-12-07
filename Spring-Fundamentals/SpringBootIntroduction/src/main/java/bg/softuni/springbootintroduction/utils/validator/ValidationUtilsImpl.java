@@ -1,9 +1,8 @@
 package bg.softuni.springbootintroduction.utils.validator;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import org.springframework.stereotype.Component;
-
-import javax.validation.Validation;
-import javax.validation.Validator;
 
 @Component
 public class ValidationUtilsImpl implements ValidationUtils {
