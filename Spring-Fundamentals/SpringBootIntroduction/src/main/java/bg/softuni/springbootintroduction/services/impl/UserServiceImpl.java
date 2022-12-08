@@ -1,5 +1,7 @@
 package bg.softuni.springbootintroduction.services.impl;
 
+import bg.softuni.springbootintroduction.domain.binding.UserLoginBindingModel;
+import bg.softuni.springbootintroduction.domain.binding.UserRegisterBindingModel;
 import bg.softuni.springbootintroduction.domain.dto.UserImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.User;
 import bg.softuni.springbootintroduction.domain.entity.UserRole;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,7 +29,6 @@ public class UserServiceImpl implements UserService {
         this.userRoleRepository = userRoleRepository;
         this.mapper = mapper;
     }
-
 
     @Override
     public void seedUsers() {
@@ -46,5 +48,35 @@ public class UserServiceImpl implements UserService {
             this.userRepository.saveAndFlush(toInsert);
             this.userRepository.saveAndFlush(toInsert2);
         }
+    }
+
+    @Override
+    public boolean isUsernameFree(String username) {
+        return this.userRepository.findFirstByUsername(username).isEmpty();
+    }
+
+    @Override
+    public void register(UserRegisterBindingModel userRegister) {
+        User user = this.mapper.map(userRegister, User.class);
+        user.setCreated(Instant.now());
+
+        UserRole role = this.userRoleRepository.findFirstByRole(Role.valueOf(userRegister.getRole()));
+
+        user.setRole(role);
+
+        this.userRepository.save(user);
+    }
+
+    @Override
+    public boolean authenticateUser(UserLoginBindingModel userLogin) {
+        Optional<User> user = this.userRepository.findFirstByUsername(userLogin.getUsername());
+
+        return user.isPresent() && user.get().getPassword().equals(userLogin.getPassword());
+    }
+
+    @Override
+    public void login(UserLoginBindingModel userLogin) {
+        User user = this.mapper.map(userLogin, User.class);
+        user.setActive(true);
     }
 }

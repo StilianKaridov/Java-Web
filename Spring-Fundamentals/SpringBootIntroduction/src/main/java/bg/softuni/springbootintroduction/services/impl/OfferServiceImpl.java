@@ -45,8 +45,8 @@ public class OfferServiceImpl implements OfferService {
             Model model1 = this.modelRepository.findFirstByName(offer1.getModel());
             Model model2 = this.modelRepository.findFirstByName(offer2.getModel());
 
-            User seller1 = this.userRepository.findFirstByUsername(offer1.getSeller());
-            User seller2 = this.userRepository.findFirstByUsername(offer2.getSeller());
+            User seller1 = this.userRepository.findFirstByUsername(offer1.getSeller()).get();
+            User seller2 = this.userRepository.findFirstByUsername(offer2.getSeller()).get();
 
             toInsert.setModel(model1);
             toInsert.setSeller(seller1);
