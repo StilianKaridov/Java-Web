@@ -1,2 +1,2 @@
 # Java-Web
-Projects from Java Web course from Soft Uni
+Mobilelele and Pathfinder projects from Java Web course in Soft Uni
