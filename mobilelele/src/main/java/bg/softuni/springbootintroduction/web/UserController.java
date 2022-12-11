@@ -35,20 +35,4 @@ public class UserController {
             return "redirect:/users/register";
         }
     }
-
-    @GetMapping("/login")
-    public String loginUser() {
-        return "auth-login";
-    }
-
-    @PostMapping("/login")
-    public String login(UserLoginBindingModel userLogin) {
-
-        if (!this.userService.authenticateUser(userLogin)) {
-            return "redirect:/users/login";
-        }
-
-        this.userService.login(userLogin);
-        return "redirect:/";
-    }
 }

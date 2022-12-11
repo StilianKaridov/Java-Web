@@ -1,6 +1,5 @@
 package bg.softuni.springbootintroduction.services;
 
-import bg.softuni.springbootintroduction.domain.binding.UserLoginBindingModel;
 import bg.softuni.springbootintroduction.domain.binding.UserRegisterBindingModel;
 
 public interface UserService {
@@ -11,7 +10,7 @@ public interface UserService {
 
     void register(UserRegisterBindingModel userRegister);
 
-    boolean authenticateUser(UserLoginBindingModel userLogin);
+    boolean authenticate(String username, String password);
 
-    void login(UserLoginBindingModel userLogin);
+    void loginUser(String username);
 }

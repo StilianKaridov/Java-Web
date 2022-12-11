@@ -1,16 +1,17 @@
 package bg.softuni.springbootintroduction.services.impl;
 
-import bg.softuni.springbootintroduction.domain.binding.UserLoginBindingModel;
 import bg.softuni.springbootintroduction.domain.binding.UserRegisterBindingModel;
 import bg.softuni.springbootintroduction.domain.dto.UserImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.User;
 import bg.softuni.springbootintroduction.domain.entity.UserRole;
 import bg.softuni.springbootintroduction.repositories.UserRepository;
 import bg.softuni.springbootintroduction.repositories.UserRoleRepository;
+import bg.softuni.springbootintroduction.security.CurrentUser;
 import bg.softuni.springbootintroduction.services.UserService;
 import bg.softuni.springbootintroduction.utils.enums.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -22,19 +23,23 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final ModelMapper mapper;
+    private final PasswordEncoder passwordEncoder;
+    private final CurrentUser currentUser;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper mapper) {
+    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper mapper, PasswordEncoder passwordEncoder, CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.mapper = mapper;
+        this.passwordEncoder = passwordEncoder;
+        this.currentUser = currentUser;
     }
 
     @Override
     public void seedUsers() {
         if (this.userRepository.count() == 0) {
-            UserImportDTO user1 = new UserImportDTO("ivan0123", "ivancho", "Ivan", "Ivanov", true, Role.Admin, Instant.now());
-            UserImportDTO user2 = new UserImportDTO("toshko0101", "todor1234", "Todor", "Todorov", false, Role.User, Instant.now());
+            UserImportDTO user1 = new UserImportDTO("ivan0123", passwordEncoder.encode("ivancho"), "Ivan", "Ivanov", true, Role.Admin, Instant.now());
+            UserImportDTO user2 = new UserImportDTO("toshko0101", passwordEncoder.encode("todor1234"), "Todor", "Todorov", false, Role.User, Instant.now());
 
             User toInsert = this.mapper.map(user1, User.class);
             User toInsert2 = this.mapper.map(user2, User.class);
@@ -68,15 +73,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean authenticateUser(UserLoginBindingModel userLogin) {
-        Optional<User> user = this.userRepository.findFirstByUsername(userLogin.getUsername());
+    public boolean authenticate(String username, String password) {
+        Optional<User> user = this.userRepository.findFirstByUsername(username);
 
-        return user.isPresent() && user.get().getPassword().equals(userLogin.getPassword());
+        if (user.isEmpty()) {
+            return false;
+        }
+
+        return passwordEncoder.matches(password, user.get().getPassword());
     }
 
     @Override
-    public void login(UserLoginBindingModel userLogin) {
-        User user = this.mapper.map(userLogin, User.class);
-        user.setActive(true);
+    public void loginUser(String username) {
+        this.currentUser.setAnonymous(false);
+        this.currentUser.setUsername(username);
     }
 }

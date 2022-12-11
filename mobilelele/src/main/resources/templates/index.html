@@ -47,11 +47,11 @@
                     </div>
                 </li>
 
-                <li th:if="${session.user}" class="nav-item">
+                <li th:if="${@currentUser.isAnonymous()}" class="nav-item">
                     <div class="form-inline my-2 my-lg-0 border px-3">
 
                         <div class="logged-user"
-                             th:text="|Welcome, ${session.user.firstName}|"></div>
+                             th:text="|Welcome, ${@currentUser.getUsername()}|"></div>
                         <a class="nav-link" href="/users/logout">Logout</a>
                     </div>
                 </li>
@@ -70,7 +70,7 @@
 
 
 <div class="container-fluid">
-    <h5 class="text-center text-white mt-5">Welcome to MobiLeLeLe</h5>
+    <h5 class="text-center text-white mt-5">Welcome to MobiLeLeLe, <span th:text="${@currentUser.getUsername()}"></span>!</h5>
 </div>
 
 <div>
