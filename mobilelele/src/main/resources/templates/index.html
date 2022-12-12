@@ -15,7 +15,7 @@
 <body>
 
 <div>
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
         <a class="navbar-brand" href="/"><img alt="car picture" src="/img/car.png" class="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto col-12 justify-content-between">
                 <li class="nav-item"
-                    >
+                >
                     <a class="nav-link" href="/brands/all">All Brands</a>
                 </li>
                 <li class="nav-item">
@@ -34,7 +34,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/offers/all">All Offers</a>
                 </li>
-                <li class="nav-item dropdown">
+
+                <li th:if = "${@userServiceImpl.isCurrentUserAdmin()}" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
@@ -47,7 +48,7 @@
                     </div>
                 </li>
 
-                <li th:if="${@currentUser.isAnonymous()}" class="nav-item">
+                <li th:unless="${@currentUser.getUsername().equals('anonymous')}" class="nav-item">
                     <div class="form-inline my-2 my-lg-0 border px-3">
 
                         <div class="logged-user"
@@ -56,13 +57,13 @@
                     </div>
                 </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/login">Login</a>
-                    </li>
-                
+                <li th:if="${@currentUser.getUsername().equals('anonymous')}" class="nav-item">
+                    <a class="nav-link" href="/users/register">Register</a>
+                </li>
+                <li th:if="${@currentUser.getUsername().equals('anonymous')}" class="nav-item">
+                    <a class="nav-link" href="/users/login">Login</a>
+                </li>
+
             </ul>
         </div>
     </nav>
@@ -70,11 +71,12 @@
 
 
 <div class="container-fluid">
-    <h5 class="text-center text-white mt-5">Welcome to MobiLeLeLe, <span th:text="${@currentUser.getUsername()}"></span>!</h5>
+    <h5 class="text-center text-white mt-5">Welcome to MobiLeLeLe, <span th:text="${@currentUser.getUsername()}"></span>!
+    </h5>
 </div>
 
 <div>
-    <footer> </footer>
+    <footer></footer>
 </div>
 
 </body>

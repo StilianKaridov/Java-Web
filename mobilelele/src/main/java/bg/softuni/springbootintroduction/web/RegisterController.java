@@ -1,6 +1,5 @@
 package bg.softuni.springbootintroduction.web;
 
-import bg.softuni.springbootintroduction.domain.binding.UserLoginBindingModel;
 import bg.softuni.springbootintroduction.domain.binding.UserRegisterBindingModel;
 import bg.softuni.springbootintroduction.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,28 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/users")
-public class UserController {
+public class RegisterController {
 
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public RegisterController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/register")
-    public String registerUser() {
+    public String showRegister() {
         return "auth-register";
     }
 
     @PostMapping("/register")
-    public String register(UserRegisterBindingModel userRegister) {
-
-        if (this.userService.isUsernameFree(userRegister.getUsername())) {
-            this.userService.register(userRegister);
-            return "redirect:/";
-        } else {
-            return "redirect:/users/register";
+    public String register(UserRegisterBindingModel user) {
+        if (this.userService.isUsernameFree(user.getUsername())) {
+            this.userService.register(user);
+            return "redirect:/users/login";
         }
+
+        return "redirect:/users/register";
     }
 }

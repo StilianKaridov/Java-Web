@@ -63,13 +63,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(UserRegisterBindingModel userRegister) {
         User user = this.mapper.map(userRegister, User.class);
+
+        Role role = Role.valueOf(userRegister.getRole());
+        UserRole userRole = this.userRoleRepository.findFirstByRole(role);
+
+        user.setRole(userRole);
+        user.setPassword(passwordEncoder.encode(userRegister.getPassword()));
         user.setCreated(Instant.now());
+        user.setActive(false);
 
-        UserRole role = this.userRoleRepository.findFirstByRole(Role.valueOf(userRegister.getRole()));
-
-        user.setRole(role);
-
-        this.userRepository.save(user);
+        this.userRepository.saveAndFlush(user);
     }
 
     @Override
@@ -87,5 +90,21 @@ public class UserServiceImpl implements UserService {
     public void loginUser(String username) {
         this.currentUser.setAnonymous(false);
         this.currentUser.setUsername(username);
+    }
+
+    @Override
+    public void logout() {
+        this.currentUser.setAnonymous(true);
+    }
+
+    @Override
+    public boolean isCurrentUserAdmin() {
+        Optional<User> user = this.userRepository.findFirstByUsername(this.currentUser.getUsername());
+
+        if (user.isEmpty()) {
+            return false;
+        }
+
+        return user.get().getRole().getRole().name().equals("Admin");
     }
 }
