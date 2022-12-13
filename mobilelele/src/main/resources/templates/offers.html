@@ -22,6 +22,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             <ul class="navbar-nav mr-auto col-12 justify-content-between">
                 <li class="nav-item"
                     >
@@ -33,7 +34,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/offers/all">All Offers</a>
                 </li>
-                <li class="nav-item dropdown">
+
+                <li th:if="${@userServiceImpl.isCurrentUserAdmin()}" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
@@ -45,22 +47,25 @@
                         <a class="dropdown-item" href="/">Something else here</a>
                     </div>
                 </li>
-                <li class="nav-item">
+
+                <li th:unless="${@currentUser.getUsername().equals('anonymous')}" class="nav-item">
                     <div class="form-inline my-2 my-lg-0 border px-3">
+
                         <div class="logged-user"
-                             text="Welcome, Gosho"></div>
+                             th:text="|Welcome, ${@currentUser.getUsername()}|"></div>
                         <a class="nav-link" href="/users/logout">Logout</a>
                     </div>
                 </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/login">Login</a>
-                    </li>
-                
+
+                <li th:if="${@currentUser.getUsername().equals('anonymous')}" class="nav-item">
+                    <a class="nav-link" href="/users/register">Register</a>
+                </li>
+
+                <li th:if="${@currentUser.getUsername().equals('anonymous')}" class="nav-item">
+                    <a class="nav-link" href="/users/login">Login</a>
+                </li>
             </ul>
+
         </div>
     </nav>
 	</div>
