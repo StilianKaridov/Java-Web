@@ -1,8 +1,9 @@
 package bg.softuni.springbootintroduction.web;
 
-import bg.softuni.springbootintroduction.services.ModelService;
+import bg.softuni.springbootintroduction.services.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,15 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/brands")
 public class BrandController {
 
-    private final ModelService modelService;
+    private final BrandService brandService;
 
     @Autowired
-    public BrandController(ModelService modelService) {
-        this.modelService = modelService;
+    public BrandController(BrandService brandService) {
+        this.brandService = brandService;
     }
 
     @GetMapping("/all")
-    public String showBrands() {
+    public String showBrands(Model model) {
+        model.addAttribute("brands", brandService.getAllBrands());
+
         return "brands";
     }
 }

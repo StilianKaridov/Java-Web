@@ -1,12 +1,15 @@
 package bg.softuni.springbootintroduction.services;
 
 import bg.softuni.springbootintroduction.domain.binding.UserRegisterBindingModel;
+import bg.softuni.springbootintroduction.domain.entity.User;
+
+import java.util.Optional;
 
 public interface UserService {
 
     void seedUsers();
 
-    boolean isUsernameFree(String username);
+    Optional<User> findByUsername(String username);
 
     void register(UserRegisterBindingModel userRegister);
 

@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isUsernameFree(String username) {
-        return this.userRepository.findFirstByUsername(username).isEmpty();
+    public Optional<User> findByUsername(String username) {
+        return this.userRepository.findFirstByUsernameIgnoreCase(username);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean authenticate(String username, String password) {
-        Optional<User> user = this.userRepository.findFirstByUsername(username);
+        Optional<User> user = findByUsername(username);
 
         if (user.isEmpty()) {
             return false;
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isCurrentUserAdmin() {
-        Optional<User> user = this.userRepository.findFirstByUsername(this.currentUser.getUsername());
+        Optional<User> user = findByUsername(this.currentUser.getUsername());
 
         if (user.isEmpty()) {
             return false;

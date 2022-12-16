@@ -2,6 +2,7 @@ package bg.softuni.springbootintroduction.services.impl;
 
 import bg.softuni.springbootintroduction.domain.dto.BrandImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.Brand;
+import bg.softuni.springbootintroduction.domain.view.BrandViewModel;
 import bg.softuni.springbootintroduction.repositories.BrandRepository;
 import bg.softuni.springbootintroduction.services.BrandService;
 import org.modelmapper.ModelMapper;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class BrandServiceImpl implements BrandService {
@@ -35,5 +37,13 @@ public class BrandServiceImpl implements BrandService {
             this.brandRepository.saveAndFlush(toInsert2);
         }
 
+    }
+
+    @Override
+    public List<BrandViewModel> getAllBrands() {
+        List<Brand> brands = this.brandRepository.findAll();
+
+        return brands.
+                stream().map(b -> mapper.map(b, BrandViewModel.class)).toList();
     }
 }
