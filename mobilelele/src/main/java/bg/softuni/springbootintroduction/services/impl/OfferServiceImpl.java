@@ -1,12 +1,15 @@
 package bg.softuni.springbootintroduction.services.impl;
 
+import bg.softuni.springbootintroduction.domain.binding.OfferSubmitBindingModel;
 import bg.softuni.springbootintroduction.domain.dto.OfferImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.Model;
 import bg.softuni.springbootintroduction.domain.entity.Offer;
 import bg.softuni.springbootintroduction.domain.entity.User;
+import bg.softuni.springbootintroduction.domain.view.OfferViewModel;
 import bg.softuni.springbootintroduction.repositories.ModelRepository;
 import bg.softuni.springbootintroduction.repositories.OfferRepository;
 import bg.softuni.springbootintroduction.repositories.UserRepository;
+import bg.softuni.springbootintroduction.security.CurrentUser;
 import bg.softuni.springbootintroduction.services.OfferService;
 import bg.softuni.springbootintroduction.utils.enums.Engine;
 import bg.softuni.springbootintroduction.utils.enums.Transmission;
@@ -16,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -24,13 +29,15 @@ public class OfferServiceImpl implements OfferService {
     private final ModelRepository modelRepository;
     private final UserRepository userRepository;
     private final ModelMapper mapper;
+    private final CurrentUser currentUser;
 
     @Autowired
-    public OfferServiceImpl(OfferRepository offerRepository, ModelRepository modelRepository, UserRepository userRepository, ModelMapper mapper) {
+    public OfferServiceImpl(OfferRepository offerRepository, ModelRepository modelRepository, UserRepository userRepository, ModelMapper mapper, CurrentUser currentUser) {
         this.offerRepository = offerRepository;
         this.modelRepository = modelRepository;
         this.userRepository = userRepository;
         this.mapper = mapper;
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -57,5 +64,32 @@ public class OfferServiceImpl implements OfferService {
             this.offerRepository.saveAndFlush(toInsert);
             this.offerRepository.saveAndFlush(toInsert2);
         }
+    }
+
+    @Override
+    public void addOffer(OfferSubmitBindingModel offerSubmitBindingModel) {
+        Model model = this.modelRepository
+                .findFirstByName(offerSubmitBindingModel.getModel());
+
+        Offer offer = this.mapper.map(offerSubmitBindingModel, Offer.class);
+
+        offer.setModel(model);
+        offer.setCreated(Instant.now());
+
+        Optional<User> seller = this.userRepository.findFirstByUsernameIgnoreCase(currentUser.getUsername());
+
+        seller.ifPresent(offer::setSeller);
+
+        this.offerRepository.save(offer);
+    }
+
+    @Override
+    public List<OfferViewModel> getAllOffers() {
+        List<Offer> allOffers = this.offerRepository.findAll();
+
+        return allOffers
+                .stream()
+                .map(o -> this.mapper.map(o, OfferViewModel.class))
+                .toList();
     }
 }

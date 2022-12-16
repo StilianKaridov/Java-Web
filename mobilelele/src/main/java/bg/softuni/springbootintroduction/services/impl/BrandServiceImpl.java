@@ -43,7 +43,9 @@ public class BrandServiceImpl implements BrandService {
     public List<BrandViewModel> getAllBrands() {
         List<Brand> brands = this.brandRepository.findAll();
 
-        return brands.
-                stream().map(b -> mapper.map(b, BrandViewModel.class)).toList();
+        return brands
+                .stream()
+                .map(b -> mapper.map(b, BrandViewModel.class))
+                .toList();
     }
 }

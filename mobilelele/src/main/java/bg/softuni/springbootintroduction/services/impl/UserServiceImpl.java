@@ -62,6 +62,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserRegisterBindingModel userRegister) {
+        String firstNameTrimmed = userRegister.getFirstName().trim();
+        String lastNameTrimmed = userRegister.getLastName().trim();
+        String usernameTrimmed = userRegister.getUsername().trim();
+
+        userRegister.setFirstName(firstNameTrimmed);
+        userRegister.setLastName(lastNameTrimmed);
+        userRegister.setUsername(usernameTrimmed);
+
         User user = this.mapper.map(userRegister, User.class);
 
         Role role = Role.valueOf(userRegister.getRole());
