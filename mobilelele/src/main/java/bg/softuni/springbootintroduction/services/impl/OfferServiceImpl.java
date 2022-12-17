@@ -5,6 +5,7 @@ import bg.softuni.springbootintroduction.domain.dto.OfferImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.Model;
 import bg.softuni.springbootintroduction.domain.entity.Offer;
 import bg.softuni.springbootintroduction.domain.entity.User;
+import bg.softuni.springbootintroduction.domain.view.OfferDetailsViewModel;
 import bg.softuni.springbootintroduction.domain.view.OfferViewModel;
 import bg.softuni.springbootintroduction.repositories.ModelRepository;
 import bg.softuni.springbootintroduction.repositories.OfferRepository;
@@ -91,5 +92,12 @@ public class OfferServiceImpl implements OfferService {
                 .stream()
                 .map(o -> this.mapper.map(o, OfferViewModel.class))
                 .toList();
+    }
+
+    @Override
+    public OfferDetailsViewModel getByOfferById(Long id) {
+        Optional<Offer> offerById = this.offerRepository.findById(id);
+
+        return this.mapper.map(offerById.get(), OfferDetailsViewModel.class);
     }
 }
