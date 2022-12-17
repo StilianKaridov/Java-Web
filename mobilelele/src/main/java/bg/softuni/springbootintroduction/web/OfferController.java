@@ -5,10 +5,7 @@ import bg.softuni.springbootintroduction.services.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/offers")
@@ -45,5 +42,12 @@ public class OfferController {
         model.addAttribute("details", this.offerService.getByOfferById(id));
 
         return "details";
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        this.offerService.deleteOfferById(id);
+
+        return "redirect:/offers/all";
     }
 }

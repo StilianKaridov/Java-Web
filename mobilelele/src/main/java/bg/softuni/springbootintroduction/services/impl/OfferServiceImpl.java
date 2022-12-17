@@ -100,4 +100,9 @@ public class OfferServiceImpl implements OfferService {
 
         return this.mapper.map(offerById.get(), OfferDetailsViewModel.class);
     }
+
+    @Override
+    public void deleteOfferById(Long id) {
+        this.offerRepository.deleteById(id);
+    }
 }
