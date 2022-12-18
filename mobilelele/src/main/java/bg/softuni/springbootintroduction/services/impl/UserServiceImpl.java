@@ -72,10 +72,8 @@ public class UserServiceImpl implements UserService {
 
         User user = this.mapper.map(userRegister, User.class);
 
-        Role role = Role.valueOf(userRegister.getRole());
-        UserRole userRole = this.userRoleRepository.findFirstByRole(role);
+        user.setRole(setUserRole());
 
-        user.setRole(userRole);
         user.setPassword(passwordEncoder.encode(userRegister.getPassword()));
         user.setCreated(Instant.now());
         user.setActive(false);
@@ -114,5 +112,13 @@ public class UserServiceImpl implements UserService {
         }
 
         return user.get().getRole().getRole().name().equals("Admin");
+    }
+
+    private UserRole setUserRole() {
+        if (this.userRepository.count() == 0) {
+            return this.userRoleRepository.findFirstByRole(Role.Admin);
+        }
+
+        return this.userRoleRepository.findFirstByRole(Role.User);
     }
 }

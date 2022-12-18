@@ -50,4 +50,16 @@ public class OfferController {
 
         return "redirect:/offers/all";
     }
+
+    @GetMapping("/update")
+    public String showUpdate() {
+        return "update";
+    }
+
+    @PatchMapping("/{id}/update")
+    public String update(@PathVariable Long id) {
+        //TODO do this
+
+        return "redirect:/offers/all";
+    }
 }

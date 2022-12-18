@@ -36,11 +36,11 @@
             </ul>
             <div class="card-body">
                 <div class="row">
-                    <form th:action="@{/offers/{id}/update(id=*{id})}" th:method="PATCH">
+                    <form th:method="GET" action="/offers/update">
                         <input class="btn btn-link" type="submit" value="Update">
                     </form>
 
-                    <form th:action="@{/offers/{id}/delete(id=*{id})}" th:method="DELETE">
+                    <form th:method="DELETE" th:action="@{/offers/{id}/delete(id=*{id})}">
                         <input class="btn btn-link" type="submit" value="Delete">
                     </form>
                 </div>
