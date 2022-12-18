@@ -4,6 +4,7 @@ import bg.softuni.springbootintroduction.domain.binding.UserLoginBindingModel;
 import bg.softuni.springbootintroduction.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LoginController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public LoginController(UserService userService) {
+    public LoginController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @ModelAttribute("user")
@@ -28,6 +31,10 @@ public class LoginController {
         return new UserLoginBindingModel();
     }
 
+    @ModelAttribute("bad_credentials")
+    public boolean initBadCredentials() {
+        return false;
+    }
 
     @GetMapping("/login")
     public String showLogin() {
@@ -39,11 +46,15 @@ public class LoginController {
                         BindingResult bindingResult,
                         RedirectAttributes redirectAttributes) {
 
-        //TODO this is the functionality only for when the input's are empty, make it to work and for invalid username/password
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("user", user);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user",
                     bindingResult);
+
+            return "redirect:/users/login";
+        } else if (!this.userService.authenticate(user.getUsername(), user.getPassword())) {
+            //TODO dont know whether it is true, that with giving the raw password for the authenticate method.
+            redirectAttributes.addFlashAttribute("bad_credentials", true);
 
             return "redirect:/users/login";
         }
@@ -51,12 +62,5 @@ public class LoginController {
         this.userService.loginUser(user.getUsername());
 
         return "redirect:/";
-
-//        if (this.userService.authenticate(user.getUsername(), user.getPassword())) {
-//            this.userService.loginUser(user.getUsername());
-//            return "redirect:/";
-//        }
-//
-//        return "redirect:/users/login";
     }
 }
