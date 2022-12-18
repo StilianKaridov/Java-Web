@@ -52,8 +52,7 @@ public class LoginController {
                     bindingResult);
 
             return "redirect:/users/login";
-        } else if (!this.userService.authenticate(user.getUsername(), user.getPassword())) {
-            //TODO dont know whether it is true, that with giving the raw password for the authenticate method.
+        } else if (!this.userService.authenticate(user)) {
             redirectAttributes.addFlashAttribute("bad_credentials", true);
 
             return "redirect:/users/login";

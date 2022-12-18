@@ -1,5 +1,6 @@
 package bg.softuni.springbootintroduction.services.impl;
 
+import bg.softuni.springbootintroduction.domain.binding.UserLoginBindingModel;
 import bg.softuni.springbootintroduction.domain.binding.UserRegisterBindingModel;
 import bg.softuni.springbootintroduction.domain.dto.UserImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.User;
@@ -82,14 +83,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean authenticate(String username, String password) {
-        Optional<User> user = findByUsername(username);
+    public boolean authenticate(UserLoginBindingModel user) {
+        Optional<User> optUser = findByUsername(user.getUsername());
 
-        if (user.isEmpty()) {
+        if (optUser.isEmpty()) {
             return false;
         }
 
-        return passwordEncoder.matches(password, user.get().getPassword());
+        return passwordEncoder.matches(user.getPassword(), optUser.get().getPassword());
     }
 
     @Override
