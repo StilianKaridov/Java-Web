@@ -15,5 +15,5 @@ public class BrandViewModel {
 
     private String name;
 
-    private Set<ModelNameViewModel> models;
+    private Set<ModelView> models;
 }

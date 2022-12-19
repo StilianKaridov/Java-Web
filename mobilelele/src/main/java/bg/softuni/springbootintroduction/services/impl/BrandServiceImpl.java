@@ -2,6 +2,7 @@ package bg.softuni.springbootintroduction.services.impl;
 
 import bg.softuni.springbootintroduction.domain.dto.BrandImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.Brand;
+import bg.softuni.springbootintroduction.domain.view.BrandModelViewModel;
 import bg.softuni.springbootintroduction.domain.view.BrandViewModel;
 import bg.softuni.springbootintroduction.repositories.BrandRepository;
 import bg.softuni.springbootintroduction.services.BrandService;
