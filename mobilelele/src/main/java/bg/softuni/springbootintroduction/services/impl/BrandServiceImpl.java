@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,9 +44,14 @@ public class BrandServiceImpl implements BrandService {
     public List<BrandViewModel> getAllBrands() {
         List<Brand> brands = this.brandRepository.findAll();
 
-        return brands
-                .stream()
-                .map(b -> mapper.map(b, BrandViewModel.class))
-                .toList();
+        List<BrandViewModel> toReturn = new ArrayList<>();
+
+        for (Brand b : brands) {
+            BrandViewModel mappedBrand = mapper.map(b, BrandViewModel.class);
+
+            toReturn.add(mappedBrand);
+        }
+
+        return toReturn;
     }
 }

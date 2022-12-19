@@ -5,15 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BrandViewModel {
+public class ModelNameViewModel {
 
     private String name;
-
-    private Set<ModelNameViewModel> models;
 }
