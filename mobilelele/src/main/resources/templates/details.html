@@ -28,19 +28,20 @@
                     <div class="card-text"><span th:text="*{transmission}">• Transmission type</span></div>
                     <div class="card-text"><span th:text="*{created}">• Offer created</span></div>
                     <div class="card-text"><span th:text="*{modified}">• Offer modified</span></div>
-                    <div class="card-text" th:if="*{sellerFirstName != null}"><span
-                            th:text="|*{sellerFirstName} *{sellerLastName}|">• Seller - First and Last name</span></div>
-                    <div class="card-text" th:unless="*{sellerFirstName != null}"><span th:text="Anonymous">• Anonymous text</span>
+                    <div class="card-text" th:if="*{sellerUsername != null}"><span
+                            th:text="*{sellerUsername}">• Seller - Username</span></div>
+                    <div class="card-text" th:unless="*{sellerUsername != null}"><span
+                            th:text="anonymous">• Anonymous</span>
                     </div>
                 </li>
             </ul>
             <div class="card-body">
                 <div class="row">
-                    <form th:method="GET" action="/offers/update">
+                    <form th:if="${canUpdate}" th:method="GET" action="/offers/update">
                         <input class="btn btn-link" type="submit" value="Update">
                     </form>
 
-                    <form th:method="DELETE" th:action="@{/offers/{id}/delete(id=*{id})}">
+                    <form th:if="${canDelete}" th:method="DELETE" th:action="@{/offers/{id}/delete(id=*{id})}">
                         <input class="btn btn-link" type="submit" value="Delete">
                     </form>
                 </div>

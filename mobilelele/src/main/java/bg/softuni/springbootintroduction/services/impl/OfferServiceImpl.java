@@ -13,6 +13,7 @@ import bg.softuni.springbootintroduction.repositories.UserRepository;
 import bg.softuni.springbootintroduction.security.CurrentUser;
 import bg.softuni.springbootintroduction.services.OfferService;
 import bg.softuni.springbootintroduction.utils.enums.Engine;
+import bg.softuni.springbootintroduction.utils.enums.Role;
 import bg.softuni.springbootintroduction.utils.enums.Transmission;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +96,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public OfferDetailsViewModel getByOfferById(Long id) {
+    public OfferDetailsViewModel getOfferById(Long id) {
         Optional<Offer> offerById = this.offerRepository.findById(id);
 
         return this.mapper.map(offerById.get(), OfferDetailsViewModel.class);
@@ -104,5 +105,35 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public void deleteOfferById(Long id) {
         this.offerRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean canCurrentUserModifyGivenOffer(Long offerId) {
+        OfferDetailsViewModel offer = getOfferById(offerId);
+
+        boolean isAnonymous = currentUser.getUsername().equals("anonymous");
+
+        if (offer.getSellerUsername() == null && isAnonymous) {
+            return true;
+        } else if (offer.getSellerUsername() == null && isCurrentUserAdmin()) {
+            return true;
+        } else if (offer.getSellerUsername() == null && !isAnonymous) {
+            return false;
+        }
+
+        return isCurrentUserAdmin() || offer.getSellerUsername().equals(currentUser.getUsername());
+    }
+
+    @Override
+    public boolean isCurrentUserAdmin() {
+        Optional<User> loggedInUser = this.userRepository.findFirstByUsernameIgnoreCase(currentUser.getUsername());
+
+        if (loggedInUser.isEmpty()) {
+            return false;
+        }
+
+        Role loggedInUserRole = loggedInUser.get().getRole().getRole();
+
+        return loggedInUserRole.equals(Role.Admin);
     }
 }

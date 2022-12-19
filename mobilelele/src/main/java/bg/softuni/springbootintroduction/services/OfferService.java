@@ -14,7 +14,11 @@ public interface OfferService {
 
     List<OfferViewModel> getAllOffers();
 
-    OfferDetailsViewModel getByOfferById(Long id);
+    OfferDetailsViewModel getOfferById(Long id);
 
     void deleteOfferById(Long id);
+
+    boolean canCurrentUserModifyGivenOffer(Long offerId);
+
+    boolean isCurrentUserAdmin();
 }

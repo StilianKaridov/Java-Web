@@ -38,9 +38,5 @@ public class OfferDetailsViewModel {
 
     private Instant modified;
 
-    private String sellerFirstName;
-
-    private String sellerLastName;
-
-
+    private String sellerUsername;
 }

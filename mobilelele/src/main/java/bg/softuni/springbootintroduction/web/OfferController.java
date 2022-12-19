@@ -68,7 +68,9 @@ public class OfferController {
 
     @GetMapping("/{id}/details")
     public String showDetails(@PathVariable Long id, Model model) {
-        model.addAttribute("details", this.offerService.getByOfferById(id));
+        model.addAttribute("canDelete", this.offerService.canCurrentUserModifyGivenOffer(id));
+        model.addAttribute("canUpdate", this.offerService.canCurrentUserModifyGivenOffer(id));
+        model.addAttribute("details", this.offerService.getOfferById(id));
 
         return "details";
     }
