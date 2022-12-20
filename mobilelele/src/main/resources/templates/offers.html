@@ -11,7 +11,8 @@
 
 <div class="container-fluid">
     <h2 class="text-center text-white mt-5">All Offers</h2>
-    <div th:each="o : ${offers}" th:object="${o}" class="offers row mx-auto d-flex flex-row justify-content-center">
+    <div th:each="o : ${offers}" th:object="${o}"
+         class="offers row mx-auto d-flex flex-row justify-content-center">
         <div class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
             <div class="card-img-top-wrapper">
                 <img class="card-img-top" th:src="*{imageUrl}" alt="Car image">
@@ -32,7 +33,7 @@
                 </li>
             </ul>
             <div class="card-body">
-                <a class="card-link" th:href="@{/offers/{offerId}/details(offerId=*{id})}">Details</a>
+                <a class="card-link" th:href="@{/offers/details/{offerId}(offerId=*{id})}">Details</a>
             </div>
         </div>
     </div>

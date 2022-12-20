@@ -1,6 +1,5 @@
 package bg.softuni.springbootintroduction.domain.binding;
 
-
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -10,28 +9,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OfferSubmitBindingModel {
+public class OfferUpdateBindingModel {
 
-    private final int CURRENT_YEAR = LocalDate.now().getYear();
-
-    @NotEmpty
-    private String model;
+    private Long id;
 
     @NotNull
     @Min(1)
     private BigDecimal price;
 
     @NotEmpty
-    private String engine;
-
-    @NotEmpty
-    private String transmission;
+    private String imageUrl;
 
     @NotNull
     private int year;
@@ -41,7 +33,4 @@ public class OfferSubmitBindingModel {
 
     @NotEmpty
     private String description;
-
-    @NotEmpty
-    private String imageUrl;
 }

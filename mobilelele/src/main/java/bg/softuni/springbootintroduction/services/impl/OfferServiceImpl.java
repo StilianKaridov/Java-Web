@@ -1,6 +1,7 @@
 package bg.softuni.springbootintroduction.services.impl;
 
 import bg.softuni.springbootintroduction.domain.binding.OfferSubmitBindingModel;
+import bg.softuni.springbootintroduction.domain.binding.OfferUpdateBindingModel;
 import bg.softuni.springbootintroduction.domain.dto.OfferImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.Model;
 import bg.softuni.springbootintroduction.domain.entity.Offer;
@@ -69,6 +70,35 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public Offer getOfferById(Long id) {
+        Optional<Offer> offerById = this.offerRepository.findById(id);
+
+        return offerById.orElse(null);
+    }
+
+    @Override
+    public Optional<OfferDetailsViewModel> getOfferDetailsModelById(Long id) {
+        return this.offerRepository.findById(id)
+                .map(o -> mapper.map(o, OfferDetailsViewModel.class));
+    }
+
+    @Override
+    public Optional<OfferUpdateBindingModel> getOfferUpdateModelById(Long id) {
+        return this.offerRepository.findById(id)
+                .map(o -> mapper.map(o, OfferUpdateBindingModel.class));
+    }
+
+    @Override
+    public List<OfferViewModel> getAllOffers() {
+        List<Offer> allOffers = this.offerRepository.findAll();
+
+        return allOffers
+                .stream()
+                .map(o -> this.mapper.map(o, OfferViewModel.class))
+                .toList();
+    }
+
+    @Override
     public void addOffer(OfferSubmitBindingModel offerSubmitBindingModel) {
         Model model = this.modelRepository
                 .findFirstByName(offerSubmitBindingModel.getModel());
@@ -86,42 +116,22 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferViewModel> getAllOffers() {
-        List<Offer> allOffers = this.offerRepository.findAll();
-
-        return allOffers
-                .stream()
-                .map(o -> this.mapper.map(o, OfferViewModel.class))
-                .toList();
-    }
-
-    @Override
-    public OfferDetailsViewModel getOfferById(Long id) {
-        Optional<Offer> offerById = this.offerRepository.findById(id);
-
-        return this.mapper.map(offerById.get(), OfferDetailsViewModel.class);
-    }
-
-    @Override
     public void deleteOfferById(Long id) {
         this.offerRepository.deleteById(id);
     }
 
     @Override
-    public boolean canCurrentUserModifyGivenOffer(Long offerId) {
-        OfferDetailsViewModel offer = getOfferById(offerId);
+    public void updateOffer(OfferUpdateBindingModel offerUpdateBindingModel) {
+        Offer offer = getOfferById(offerUpdateBindingModel.getId());
 
-        boolean isAnonymous = currentUser.getUsername().equals("anonymous");
+        offer.setPrice(offerUpdateBindingModel.getPrice());
+        offer.setImageUrl(offerUpdateBindingModel.getImageUrl());
+        offer.setYear(offerUpdateBindingModel.getYear());
+        offer.setMileage(offerUpdateBindingModel.getMileage());
+        offer.setDescription(offerUpdateBindingModel.getDescription());
+        offer.setModified(Instant.now());
 
-        if (offer.getSellerUsername() == null && isAnonymous) {
-            return true;
-        } else if (offer.getSellerUsername() == null && isCurrentUserAdmin()) {
-            return true;
-        } else if (offer.getSellerUsername() == null && !isAnonymous) {
-            return false;
-        }
-
-        return isCurrentUserAdmin() || offer.getSellerUsername().equals(currentUser.getUsername());
+        this.offerRepository.save(offer);
     }
 
     @Override
@@ -135,5 +145,26 @@ public class OfferServiceImpl implements OfferService {
         Role loggedInUserRole = loggedInUser.get().getRole().getRole();
 
         return loggedInUserRole.equals(Role.Admin);
+    }
+
+    @Override
+    public boolean canCurrentUserModifyGivenOffer(Long offerId) {
+        Offer offer = getOfferById(offerId);
+
+
+        OfferDetailsViewModel offerDetails = mapper.map(offer, OfferDetailsViewModel.class);
+        ;
+
+        boolean isAnonymous = currentUser.getUsername().equals("anonymous");
+
+        if (offerDetails.getSellerUsername() == null && isAnonymous) {
+            return true;
+        } else if (offerDetails.getSellerUsername() == null && isCurrentUserAdmin()) {
+            return true;
+        } else if (offerDetails.getSellerUsername() == null && !isAnonymous) {
+            return false;
+        }
+
+        return isCurrentUserAdmin() || offerDetails.getSellerUsername().equals(currentUser.getUsername());
     }
 }
