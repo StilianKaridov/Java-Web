@@ -27,8 +27,6 @@
                     <a class="nav-link" href="/offers/all">All Offers</a>
                 </li>
 
-
-<!--                Change the href, when you decide to do the admin functionalities-->
                 <li th:if="${@userServiceImpl.isCurrentUserAdmin()}" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,12 +49,15 @@
                     </div>
                 </li>
 
-                <li th:if="${@currentUser.getUsername().equals('anonymous')}" class="nav-item">
-                    <a class="nav-link" href="/users/register">Register</a>
-                </li>
-                <li th:if="${@currentUser.getUsername().equals('anonymous')}" class="nav-item">
-                    <a class="nav-link" href="/users/login">Login</a>
-                </li>
+                <th:block th:if="${@currentUser.getUsername().equals('anonymous')}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/login">Login</a>
+                    </li>
+                </th:block>
+
             </ul>
 
         </div>

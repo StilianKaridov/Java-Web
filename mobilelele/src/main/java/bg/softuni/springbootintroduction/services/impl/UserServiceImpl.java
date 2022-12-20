@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(userRegister.getPassword()));
         user.setCreated(Instant.now());
-        user.setActive(false);
+        user.setActive(true);
 
         this.userRepository.saveAndFlush(user);
     }
