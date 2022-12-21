@@ -46,8 +46,8 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public void seedOffers() {
         if (this.offerRepository.count() == 0) {
-            OfferImportDTO offer1 = new OfferImportDTO(Engine.DIESEL, "url1", BigDecimal.valueOf(30000), Transmission.AUTOMATIC, 2011, Instant.now(), "CLS-Class", "ivan0123");
-            OfferImportDTO offer2 = new OfferImportDTO(Engine.GASOLINE, "url2", BigDecimal.valueOf(25000), Transmission.MANUAL, 2008, Instant.now(), "A4", "toshko0101");
+            OfferImportDTO offer1 = new OfferImportDTO(Engine.DIESEL, "https://felix-airsuspension.com/wp-content/uploads/2019/01/2014_mercedes-benz_cls-classjpeg-1024x781.jpeg", BigDecimal.valueOf(30000), Transmission.AUTOMATIC, 2011, Instant.now(), "CLS-Class", "ivan0123");
+            OfferImportDTO offer2 = new OfferImportDTO(Engine.GASOLINE, "https://cdn3.focus.bg/autodata/i/audi/a4/a4-b8/large/4e3dc942a9585e01775d66cf0163a22b.jpg", BigDecimal.valueOf(25000), Transmission.MANUAL, 2008, Instant.now(), "A4", "toshko0101");
 
             Offer toInsert = this.mapper.map(offer1, Offer.class);
             Offer toInsert2 = this.mapper.map(offer2, Offer.class);

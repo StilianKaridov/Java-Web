@@ -14,8 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
-
 @Controller
 @RequestMapping("/offers")
 public class OfferController {
@@ -48,10 +46,7 @@ public class OfferController {
 
     @GetMapping("/add")
     public String showAddOffer(Model model) {
-        int currentYear = LocalDate.now().getYear();
-
         model.addAttribute("brands", this.brandService.getAllBrands());
-        model.addAttribute("currentYear", currentYear);
 
         return "offer-add";
     }

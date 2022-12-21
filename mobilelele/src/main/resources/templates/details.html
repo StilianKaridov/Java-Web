@@ -22,17 +22,20 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span th:text="*{mileage}">• Mileage</span></div>
-                    <div class="card-text"><span th:text="*{price}">• Price</span></div>
-                    <div class="card-text"><span th:text="*{engine}">• Engine type</span></div>
-                    <div class="card-text"><span th:text="*{transmission}">• Transmission type</span></div>
-                    <div class="card-text"><span th:text="*{created}">• Offer created</span></div>
-                    <div class="card-text"><span th:text="*{modified}">• Offer modified</span></div>
-                    <div class="card-text" th:if="*{sellerUsername != null}"><span
-                            th:text="*{sellerUsername}">• Seller - Username</span></div>
-                    <div class="card-text" th:unless="*{sellerUsername != null}"><span
-                            th:text="anonymous">• Anonymous</span>
+                    <div class="card-text">Mileage: <b><span th:text="*{mileage}">• Mileage</span></b></div>
+                    <div class="card-text">Price: <b><span th:text="*{price}">• Price</span></b></div>
+                    <div class="card-text">Engine: <b><span th:text="*{engine}">• Engine type</span></b></div>
+                    <div class="card-text">Transmission: <b><span
+                            th:text="*{transmission}">• Transmission type</span></b></div>
+                    <div class="card-text">Posted on: <b><span th:text="*{created}">• Offer created</span></b></div>
+                    <div class="card-text" th:if="*{modified != null}">Modified on: <b><span th:text="*{modified}">• Offer modified</span></b>
                     </div>
+                    <div class="card-text" th:if="*{sellerUsername != null}">Seller: <b><span
+                            th:text="*{sellerUsername}">• Seller - Username</span></b></div>
+                    <div class="card-text" th:unless="*{sellerUsername != null}">Seller: <b><span
+                            th:text="anonymous">• Anonymous</span></b></div>
+                    <div class="card-text">Description: <b><span
+                            th:text="*{description}">• Description</span></b></div>
                 </li>
             </ul>
             <div class="card-body">
@@ -47,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+        <div class="offer-details col-sm-2 col-md-3  col-lg-4 m-1 p-0">
             <img th:src="*{imageUrl}" class="card-img-top" alt="Car image">
         </div>
     </div>
