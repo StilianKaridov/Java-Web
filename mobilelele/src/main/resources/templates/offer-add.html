@@ -25,7 +25,8 @@
                         id="model"
                         name="model"
                         th:errorclass="is-invalid"
-                        class="form-control">
+                        class="form-control"
+                        onchange="changeModelManufacturingYears(this)">
 
                     <option value="" disabled selected hidden>- Select a model -</option>
 
@@ -122,13 +123,11 @@
                         th:errorclass="is-invalid"
                         type="number"
                         step="1"
-                        min="1900"
-                        max="2023"
                         class="form-control"
                         placeholder="Manufacturing year"/>
 
                 <p class="invalid-feedback errors alert alert-danger">
-                    Year is required and should be between 1900 and 2023.
+                    Year is required.
                 </p>
 
             </div>

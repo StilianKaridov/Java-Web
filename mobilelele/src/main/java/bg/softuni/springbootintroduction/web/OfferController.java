@@ -6,7 +6,6 @@ import bg.softuni.springbootintroduction.domain.view.OfferDetailsViewModel;
 import bg.softuni.springbootintroduction.services.BrandService;
 import bg.softuni.springbootintroduction.services.OfferService;
 import jakarta.validation.Valid;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +19,11 @@ public class OfferController {
 
     private final OfferService offerService;
     private final BrandService brandService;
-    private final ModelMapper mapper;
 
     @Autowired
-    public OfferController(OfferService offerService, BrandService brandService, ModelMapper mapper) {
+    public OfferController(OfferService offerService, BrandService brandService) {
         this.offerService = offerService;
         this.brandService = brandService;
-        this.mapper = mapper;
     }
 
     @ModelAttribute("offer")

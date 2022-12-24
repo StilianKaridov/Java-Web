@@ -1,5 +1,6 @@
 package bg.softuni.springbootintroduction.services.impl;
 
+import bg.softuni.springbootintroduction.domain.dto.ModelGetManufacturingYearsDTO;
 import bg.softuni.springbootintroduction.domain.dto.ModelImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.Brand;
 import bg.softuni.springbootintroduction.domain.entity.Model;
@@ -43,5 +44,12 @@ public class ModelServiceImpl implements ModelService {
             this.modelRepository.saveAndFlush(toInsert1);
             this.modelRepository.saveAndFlush(toInsert2);
         }
+    }
+
+    @Override
+    public ModelGetManufacturingYearsDTO getModelWithManufacturingYears(String modelName) {
+        Model model = this.modelRepository.findFirstByName(modelName);
+
+        return this.mapper.map(model, ModelGetManufacturingYearsDTO.class);
     }
 }
