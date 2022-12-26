@@ -25,4 +25,12 @@ public class OfferRestController {
 
         return ResponseEntity.ok(model);
     }
+
+    @GetMapping(value = "/offers/updateModel/{modelName}")
+    public ResponseEntity<ModelGetManufacturingYearsDTO> getModelManufacturingYearsOnUpdate(@PathVariable String modelName) {
+
+        ModelGetManufacturingYearsDTO model = this.modelService.getModelWithManufacturingYears(modelName);
+
+        return ResponseEntity.ok(model);
+    }
 }

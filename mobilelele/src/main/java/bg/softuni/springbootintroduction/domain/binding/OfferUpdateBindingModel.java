@@ -1,8 +1,6 @@
 package bg.softuni.springbootintroduction.domain.binding;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +15,8 @@ import java.math.BigDecimal;
 public class OfferUpdateBindingModel {
 
     private Long id;
+
+    private String modelName;
 
     @NotNull
     @Min(1)
