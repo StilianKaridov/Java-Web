@@ -2,12 +2,12 @@ package bg.softuni.springbootintroduction.domain.entity;
 
 import bg.softuni.springbootintroduction.utils.enums.Engine;
 import bg.softuni.springbootintroduction.utils.enums.Transmission;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 

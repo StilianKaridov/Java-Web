@@ -5,13 +5,15 @@ import bg.softuni.springbootintroduction.domain.binding.OfferUpdateBindingModel;
 import bg.softuni.springbootintroduction.domain.view.OfferDetailsViewModel;
 import bg.softuni.springbootintroduction.services.BrandService;
 import bg.softuni.springbootintroduction.services.OfferService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/offers")
@@ -51,7 +53,8 @@ public class OfferController {
     @PostMapping("/add")
     public String addOffer(@Valid OfferSubmitBindingModel offerSubmitBindingModel,
                            BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes,
+                           Principal principal) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("offer", offerSubmitBindingModel);
@@ -61,7 +64,7 @@ public class OfferController {
             return "redirect:/offers/add";
         }
 
-        this.offerService.addOffer(offerSubmitBindingModel);
+        this.offerService.addOffer(offerSubmitBindingModel, principal);
 
         return "redirect:/";
     }
@@ -73,17 +76,17 @@ public class OfferController {
         return "offers";
     }
 
-    @GetMapping("/details/{id}")
-    public String showDetails(@PathVariable Long id, Model model) {
-        OfferDetailsViewModel offerDetails = this.offerService.getOfferDetailsModelById(id).get();
-
-
-        model.addAttribute("canDelete", this.offerService.canCurrentUserModifyGivenOffer(id));
-        model.addAttribute("canUpdate", this.offerService.canCurrentUserModifyGivenOffer(id));
-        model.addAttribute("offerDetails", offerDetails);
-
-        return "details";
-    }
+//    @GetMapping("/details/{id}")
+//    public String showDetails(@PathVariable Long id, Model model) {
+//        OfferDetailsViewModel offerDetails = this.offerService.getOfferDetailsModelById(id).get();
+//
+//
+//        model.addAttribute("canDelete", this.offerService.canCurrentUserModifyGivenOffer(id));
+//        model.addAttribute("canUpdate", this.offerService.canCurrentUserModifyGivenOffer(id));
+//        model.addAttribute("offerDetails", offerDetails);
+//
+//        return "details";
+//    }
 
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {

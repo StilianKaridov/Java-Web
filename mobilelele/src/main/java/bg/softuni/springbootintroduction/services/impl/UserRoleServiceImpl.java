@@ -20,8 +20,8 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public void seedUserRoles() {
         if (this.userRoleRepository.count() == 0) {
-            UserRole user = new UserRole(Role.User);
-            UserRole admin = new UserRole(Role.Admin);
+            UserRole user = new UserRole(Role.USER);
+            UserRole admin = new UserRole(Role.ADMIN);
 
             this.userRoleRepository.saveAndFlush(user);
             this.userRoleRepository.saveAndFlush(admin);

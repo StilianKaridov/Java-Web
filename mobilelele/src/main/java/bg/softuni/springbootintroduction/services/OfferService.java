@@ -6,6 +6,7 @@ import bg.softuni.springbootintroduction.domain.entity.Offer;
 import bg.softuni.springbootintroduction.domain.view.OfferDetailsViewModel;
 import bg.softuni.springbootintroduction.domain.view.OfferViewModel;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,13 +22,13 @@ public interface OfferService {
 
     List<OfferViewModel> getAllOffers();
 
-    void addOffer(OfferSubmitBindingModel offerSubmitBindingModel);
+    void addOffer(OfferSubmitBindingModel offerSubmitBindingModel, Principal principal);
 
     void deleteOfferById(Long id);
 
     void updateOffer(OfferUpdateBindingModel offerUpdateBindingModel);
-
-    boolean isCurrentUserAdmin();
-
-    boolean canCurrentUserModifyGivenOffer(Long offerId);
+//
+//    boolean isCurrentUserAdmin();
+//
+//    boolean canCurrentUserModifyGivenOffer(Long offerId);
 }

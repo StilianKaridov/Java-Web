@@ -1,13 +1,13 @@
 package bg.softuni.springbootintroduction.domain.entity;
 
 import bg.softuni.springbootintroduction.utils.enums.Category;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Getter
@@ -25,7 +25,7 @@ public class Model extends BaseEntity {
     @Column(nullable = false)
     private Category category;
 
-    @Size(min =  8, max = 512)
+    @Size(min = 8, max = 512)
     @Column(name = "image_url")
     private String imageUrl;
 
