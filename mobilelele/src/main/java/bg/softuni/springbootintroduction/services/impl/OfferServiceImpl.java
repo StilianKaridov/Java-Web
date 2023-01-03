@@ -115,6 +115,22 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public boolean isOwner(String username, Long id) {
+        Optional<Offer> offerOpt = this.offerRepository.findById(id);
+
+        Optional<User> caller = this.userRepository.findFirstByUsernameIgnoreCase(username);
+
+        if (offerOpt.isEmpty() || caller.isEmpty()) {
+            return false;
+        }
+
+        Offer offer = offerOpt.get();
+
+        return isCurrentUserAdmin(caller.get()) ||
+                offer.getSeller().getUsername().equalsIgnoreCase(username);
+    }
+
+    @Override
     public void deleteOfferById(Long id) {
         this.offerRepository.deleteById(id);
     }
@@ -132,38 +148,7 @@ public class OfferServiceImpl implements OfferService {
 
         this.offerRepository.save(offer);
     }
-//
-//    @Override
-//    public boolean isCurrentUserAdmin() {
-//        Optional<User> loggedInUser = this.userRepository.findFirstByUsernameIgnoreCase(currentUser.getUsername());
-//
-//        if (loggedInUser.isEmpty()) {
-//            return false;
-//        }
-//
-//        Role loggedInUserRole = loggedInUser.get().getRole().getRole();
-//
-//        return loggedInUserRole.equals(Role.Admin);
-//    }
-//
-//    @Override
-//    public boolean canCurrentUserModifyGivenOffer(Long offerId) {
-//        Offer offer = getOfferById(offerId);
-//
-//
-//        OfferDetailsViewModel offerDetails = mapper.map(offer, OfferDetailsViewModel.class);
-//        ;
-//
-//        boolean isAnonymous = currentUser.getUsername().equals("anonymous");
-//
-//        if (offerDetails.getSellerUsername() == null && isAnonymous) {
-//            return true;
-//        } else if (offerDetails.getSellerUsername() == null && isCurrentUserAdmin()) {
-//            return true;
-//        } else if (offerDetails.getSellerUsername() == null && !isAnonymous) {
-//            return false;
-//        }
-//
-//        return isCurrentUserAdmin() || offerDetails.getSellerUsername().equals(currentUser.getUsername());
-//    }
+    private boolean isCurrentUserAdmin(User user) {
+        return user.getRole().getRole().compareTo(Role.ADMIN) == 0;
+    }
 }

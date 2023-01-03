@@ -19,12 +19,14 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/brands/all}">All Brands</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/offers/add}">Add Offer</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/offers/all}">All Offers</a>
-                </li>
+                <th:block  sec:authorize="isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/offers/add}">Add Offer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/offers/all}">All Offers</a>
+                    </li>
+                </th:block>
 
                 <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
@@ -52,12 +54,15 @@
                 </li>
 
                 <th:block sec:authorize="!isAuthenticated()">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/users/register}">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/users/login}">Login</a>
-                    </li>
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/users/register}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/users/login}">Login</a>
+                        </li>
+                    </div>
+
                 </th:block>
 
             </ul>

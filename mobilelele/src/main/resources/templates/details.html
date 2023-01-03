@@ -40,13 +40,17 @@
             </ul>
             <div class="card-body">
                 <div class="row">
-                    <form th:if="${canUpdate}" th:method="GET" th:action="@{/offers/update/{id}(id=*{id})}">
-                        <input class="btn btn-link" type="submit" value="Update">
-                    </form>
 
-                    <form th:if="${canDelete}" th:method="DELETE" th:action="@{/offers/delete/{id}(id=*{id})}">
-                        <input class="btn btn-link" type="submit" value="Delete">
-                    </form>
+                    <th:block th:if="${canModify}">
+                        <form th:method="GET" th:action="@{/offers/update/{id}(id=*{id})}">
+                            <input class="btn btn-link" type="submit" value="Update">
+                        </form>
+
+                        <form th:method="DELETE" th:action="@{/offers/delete/{id}(id=*{id})}">
+                            <input class="btn btn-link" type="submit" value="Delete">
+                        </form>
+                    </th:block>
+
                 </div>
             </div>
         </div>

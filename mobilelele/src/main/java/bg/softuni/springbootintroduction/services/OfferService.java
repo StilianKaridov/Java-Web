@@ -24,11 +24,9 @@ public interface OfferService {
 
     void addOffer(OfferSubmitBindingModel offerSubmitBindingModel, Principal principal);
 
+    boolean isOwner(String username, Long id);
+
     void deleteOfferById(Long id);
 
     void updateOffer(OfferUpdateBindingModel offerUpdateBindingModel);
-//
-//    boolean isCurrentUserAdmin();
-//
-//    boolean canCurrentUserModifyGivenOffer(Long offerId);
 }
