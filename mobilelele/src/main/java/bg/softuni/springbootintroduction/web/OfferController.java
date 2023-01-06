@@ -5,13 +5,16 @@ import bg.softuni.springbootintroduction.domain.binding.OfferUpdateBindingModel;
 import bg.softuni.springbootintroduction.domain.view.OfferDetailsViewModel;
 import bg.softuni.springbootintroduction.service.BrandService;
 import bg.softuni.springbootintroduction.service.OfferService;
+import bg.softuni.springbootintroduction.service.exceptions.OfferNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -132,5 +135,14 @@ public class OfferController {
         this.offerService.updateOffer(offerUpdateBindingModel);
 
         return "redirect:/offers/all";
+    }
+
+    @ExceptionHandler(OfferNotFoundException.class)
+    public ModelAndView handleOfferException(OfferNotFoundException e){
+        ModelAndView modelAndView = new ModelAndView("offer-not-found");
+        modelAndView.addObject("offerId", e.getId());
+        modelAndView.setStatus(e.getClass().getAnnotation(ResponseStatus.class).value());
+
+        return modelAndView;
     }
 }

@@ -44,6 +44,7 @@
 
                         <div class="logged-user">Welcome,
                             <th:block sec:authentication="name">
+                                Name of the current logged in user
                             </th:block>
                         </div>
                         <form th:action="@{/users/logout}" th:method="POST">

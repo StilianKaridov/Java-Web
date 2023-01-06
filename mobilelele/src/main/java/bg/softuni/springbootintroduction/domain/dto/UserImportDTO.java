@@ -1,6 +1,6 @@
 package bg.softuni.springbootintroduction.domain.dto;
 
-import bg.softuni.springbootintroduction.domain.entity.enums.Role;
+import bg.softuni.springbootintroduction.utils.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

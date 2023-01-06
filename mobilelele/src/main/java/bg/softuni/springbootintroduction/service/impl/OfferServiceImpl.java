@@ -12,9 +12,10 @@ import bg.softuni.springbootintroduction.repository.ModelRepository;
 import bg.softuni.springbootintroduction.repository.OfferRepository;
 import bg.softuni.springbootintroduction.repository.UserRepository;
 import bg.softuni.springbootintroduction.service.OfferService;
-import bg.softuni.springbootintroduction.domain.entity.enums.Engine;
-import bg.softuni.springbootintroduction.domain.entity.enums.Role;
-import bg.softuni.springbootintroduction.domain.entity.enums.Transmission;
+import bg.softuni.springbootintroduction.service.exceptions.OfferNotFoundException;
+import bg.softuni.springbootintroduction.utils.enums.Engine;
+import bg.softuni.springbootintroduction.utils.enums.Role;
+import bg.softuni.springbootintroduction.utils.enums.Transmission;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,26 +71,23 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public Offer getOfferById(Long id) {
-        //TODO make and process the exception here instead of returning null
-        Optional<Offer> offerById = this.offerRepository.findById(id);
-
-        return offerById.orElse(null);
+        return this.offerRepository
+                .findById(id)
+                .orElseThrow(() -> new OfferNotFoundException(id));
     }
 
     @Override
     public Optional<OfferDetailsViewModel> getOfferDetailsModelById(Long id) {
-        //TODO make and process the exception here instead of returning null
+        Offer offer = getOfferById(id);
 
-        return this.offerRepository.findById(id)
-                .map(o -> mapper.map(o, OfferDetailsViewModel.class));
+        return Optional.of(mapper.map(offer, OfferDetailsViewModel.class));
     }
 
     @Override
     public Optional<OfferUpdateBindingModel> getOfferUpdateModelById(Long id) {
-        //TODO make and process the exception here instead of returning null
+        Offer offer = getOfferById(id);
 
-        return this.offerRepository.findById(id)
-                .map(o -> mapper.map(o, OfferUpdateBindingModel.class));
+        return Optional.of(mapper.map(offer, OfferUpdateBindingModel.class));
     }
 
     @Override

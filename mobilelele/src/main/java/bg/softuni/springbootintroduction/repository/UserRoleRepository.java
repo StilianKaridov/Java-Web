@@ -1,7 +1,7 @@
 package bg.softuni.springbootintroduction.repository;
 
 import bg.softuni.springbootintroduction.domain.entity.UserRole;
-import bg.softuni.springbootintroduction.domain.entity.enums.Role;
+import bg.softuni.springbootintroduction.utils.enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

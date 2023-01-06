@@ -1,6 +1,6 @@
 package bg.softuni.springbootintroduction.domain.dto;
 
-import bg.softuni.springbootintroduction.domain.entity.enums.Category;
+import bg.softuni.springbootintroduction.utils.enums.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
