@@ -1,6 +1,6 @@
 package bg.softuni.springbootintroduction.web.interceptor;
 
-import bg.softuni.springbootintroduction.services.StatsService;
+import bg.softuni.springbootintroduction.service.StatsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 

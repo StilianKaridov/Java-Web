@@ -1,8 +1,8 @@
-package bg.softuni.springbootintroduction.services.impl;
+package bg.softuni.springbootintroduction.service.impl;
 
 import bg.softuni.springbootintroduction.domain.entity.UserRole;
-import bg.softuni.springbootintroduction.repositories.UserRoleRepository;
-import bg.softuni.springbootintroduction.services.UserRoleService;
+import bg.softuni.springbootintroduction.repository.UserRoleRepository;
+import bg.softuni.springbootintroduction.service.UserRoleService;
 import bg.softuni.springbootintroduction.domain.entity.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,12 +1,12 @@
-package bg.softuni.springbootintroduction.services.impl;
+package bg.softuni.springbootintroduction.service.impl;
 
 import bg.softuni.springbootintroduction.domain.binding.UserRegisterBindingModel;
 import bg.softuni.springbootintroduction.domain.dto.UserImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.User;
 import bg.softuni.springbootintroduction.domain.entity.UserRole;
-import bg.softuni.springbootintroduction.repositories.UserRepository;
-import bg.softuni.springbootintroduction.repositories.UserRoleRepository;
-import bg.softuni.springbootintroduction.services.UserService;
+import bg.softuni.springbootintroduction.repository.UserRepository;
+import bg.softuni.springbootintroduction.repository.UserRoleRepository;
+import bg.softuni.springbootintroduction.service.UserService;
 import bg.softuni.springbootintroduction.domain.entity.enums.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

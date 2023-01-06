@@ -1,8 +1,8 @@
-package bg.softuni.springbootintroduction.services.impl;
+package bg.softuni.springbootintroduction.service.impl;
 
 
 import bg.softuni.springbootintroduction.domain.entity.User;
-import bg.softuni.springbootintroduction.repositories.UserRepository;
+import bg.softuni.springbootintroduction.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //TODO process the exception here
         User user = this.userRepository.
                 findUserByUsernameEquals(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with name " + username + " not found!"));

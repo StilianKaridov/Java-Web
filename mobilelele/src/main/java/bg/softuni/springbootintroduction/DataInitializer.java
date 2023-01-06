@@ -1,6 +1,6 @@
 package bg.softuni.springbootintroduction;
 
-import bg.softuni.springbootintroduction.services.*;
+import bg.softuni.springbootintroduction.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

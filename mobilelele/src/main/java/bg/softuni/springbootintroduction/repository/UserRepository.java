@@ -1,4 +1,4 @@
-package bg.softuni.springbootintroduction.repositories;
+package bg.softuni.springbootintroduction.repository;
 
 import bg.softuni.springbootintroduction.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

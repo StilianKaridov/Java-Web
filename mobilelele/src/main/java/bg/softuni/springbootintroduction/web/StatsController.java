@@ -1,6 +1,6 @@
 package bg.softuni.springbootintroduction.web;
 
-import bg.softuni.springbootintroduction.services.StatsService;
+import bg.softuni.springbootintroduction.service.StatsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;

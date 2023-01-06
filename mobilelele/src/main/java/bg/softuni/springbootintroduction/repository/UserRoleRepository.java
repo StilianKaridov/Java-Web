@@ -1,4 +1,4 @@
-package bg.softuni.springbootintroduction.repositories;
+package bg.softuni.springbootintroduction.repository;
 
 import bg.softuni.springbootintroduction.domain.entity.UserRole;
 import bg.softuni.springbootintroduction.domain.entity.enums.Role;

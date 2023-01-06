@@ -1,6 +1,6 @@
 package bg.softuni.springbootintroduction.domain.validation;
 
-import bg.softuni.springbootintroduction.repositories.UserRepository;
+import bg.softuni.springbootintroduction.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;

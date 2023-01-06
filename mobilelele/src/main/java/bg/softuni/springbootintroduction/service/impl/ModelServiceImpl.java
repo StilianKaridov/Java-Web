@@ -1,12 +1,12 @@
-package bg.softuni.springbootintroduction.services.impl;
+package bg.softuni.springbootintroduction.service.impl;
 
 import bg.softuni.springbootintroduction.domain.dto.ModelGetManufacturingYearsDTO;
 import bg.softuni.springbootintroduction.domain.dto.ModelImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.Brand;
 import bg.softuni.springbootintroduction.domain.entity.Model;
-import bg.softuni.springbootintroduction.repositories.BrandRepository;
-import bg.softuni.springbootintroduction.repositories.ModelRepository;
-import bg.softuni.springbootintroduction.services.ModelService;
+import bg.softuni.springbootintroduction.repository.BrandRepository;
+import bg.softuni.springbootintroduction.repository.ModelRepository;
+import bg.softuni.springbootintroduction.service.ModelService;
 import bg.softuni.springbootintroduction.domain.entity.enums.Category;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

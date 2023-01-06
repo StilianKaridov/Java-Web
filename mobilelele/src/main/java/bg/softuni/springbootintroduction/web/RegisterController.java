@@ -1,7 +1,7 @@
 package bg.softuni.springbootintroduction.web;
 
 import bg.softuni.springbootintroduction.domain.binding.UserRegisterBindingModel;
-import bg.softuni.springbootintroduction.services.UserService;
+import bg.softuni.springbootintroduction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

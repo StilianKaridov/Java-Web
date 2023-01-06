@@ -1,4 +1,4 @@
-package bg.softuni.springbootintroduction.services;
+package bg.softuni.springbootintroduction.service;
 
 import bg.softuni.springbootintroduction.domain.view.StatsView;
 

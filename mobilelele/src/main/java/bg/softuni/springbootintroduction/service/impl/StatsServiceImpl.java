@@ -1,7 +1,7 @@
-package bg.softuni.springbootintroduction.services.impl;
+package bg.softuni.springbootintroduction.service.impl;
 
 import bg.softuni.springbootintroduction.domain.view.StatsView;
-import bg.softuni.springbootintroduction.services.StatsService;
+import bg.softuni.springbootintroduction.service.StatsService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

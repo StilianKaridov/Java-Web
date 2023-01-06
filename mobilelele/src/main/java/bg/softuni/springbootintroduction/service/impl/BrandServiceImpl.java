@@ -1,11 +1,10 @@
-package bg.softuni.springbootintroduction.services.impl;
+package bg.softuni.springbootintroduction.service.impl;
 
 import bg.softuni.springbootintroduction.domain.dto.BrandImportDTO;
 import bg.softuni.springbootintroduction.domain.entity.Brand;
-import bg.softuni.springbootintroduction.domain.view.BrandModelViewModel;
 import bg.softuni.springbootintroduction.domain.view.BrandViewModel;
-import bg.softuni.springbootintroduction.repositories.BrandRepository;
-import bg.softuni.springbootintroduction.services.BrandService;
+import bg.softuni.springbootintroduction.repository.BrandRepository;
+import bg.softuni.springbootintroduction.service.BrandService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

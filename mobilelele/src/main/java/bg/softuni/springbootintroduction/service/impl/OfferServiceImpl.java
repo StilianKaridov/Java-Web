@@ -1,4 +1,4 @@
-package bg.softuni.springbootintroduction.services.impl;
+package bg.softuni.springbootintroduction.service.impl;
 
 import bg.softuni.springbootintroduction.domain.binding.OfferSubmitBindingModel;
 import bg.softuni.springbootintroduction.domain.binding.OfferUpdateBindingModel;
@@ -8,10 +8,10 @@ import bg.softuni.springbootintroduction.domain.entity.Offer;
 import bg.softuni.springbootintroduction.domain.entity.User;
 import bg.softuni.springbootintroduction.domain.view.OfferDetailsViewModel;
 import bg.softuni.springbootintroduction.domain.view.OfferViewModel;
-import bg.softuni.springbootintroduction.repositories.ModelRepository;
-import bg.softuni.springbootintroduction.repositories.OfferRepository;
-import bg.softuni.springbootintroduction.repositories.UserRepository;
-import bg.softuni.springbootintroduction.services.OfferService;
+import bg.softuni.springbootintroduction.repository.ModelRepository;
+import bg.softuni.springbootintroduction.repository.OfferRepository;
+import bg.softuni.springbootintroduction.repository.UserRepository;
+import bg.softuni.springbootintroduction.service.OfferService;
 import bg.softuni.springbootintroduction.domain.entity.enums.Engine;
 import bg.softuni.springbootintroduction.domain.entity.enums.Role;
 import bg.softuni.springbootintroduction.domain.entity.enums.Transmission;
@@ -70,6 +70,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public Offer getOfferById(Long id) {
+        //TODO make and process the exception here instead of returning null
         Optional<Offer> offerById = this.offerRepository.findById(id);
 
         return offerById.orElse(null);
@@ -77,12 +78,16 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public Optional<OfferDetailsViewModel> getOfferDetailsModelById(Long id) {
+        //TODO make and process the exception here instead of returning null
+
         return this.offerRepository.findById(id)
                 .map(o -> mapper.map(o, OfferDetailsViewModel.class));
     }
 
     @Override
     public Optional<OfferUpdateBindingModel> getOfferUpdateModelById(Long id) {
+        //TODO make and process the exception here instead of returning null
+
         return this.offerRepository.findById(id)
                 .map(o -> mapper.map(o, OfferUpdateBindingModel.class));
     }
@@ -148,6 +153,7 @@ public class OfferServiceImpl implements OfferService {
 
         this.offerRepository.save(offer);
     }
+
     private boolean isCurrentUserAdmin(User user) {
         return user.getRole().getRole().compareTo(Role.ADMIN) == 0;
     }
