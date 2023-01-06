@@ -3,7 +3,7 @@ package bg.softuni.springbootintroduction.services.impl;
 import bg.softuni.springbootintroduction.domain.entity.UserRole;
 import bg.softuni.springbootintroduction.repositories.UserRoleRepository;
 import bg.softuni.springbootintroduction.services.UserRoleService;
-import bg.softuni.springbootintroduction.utils.enums.Role;
+import bg.softuni.springbootintroduction.domain.entity.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

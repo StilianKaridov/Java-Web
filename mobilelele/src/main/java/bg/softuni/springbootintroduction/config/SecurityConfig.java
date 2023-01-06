@@ -1,6 +1,6 @@
 package bg.softuni.springbootintroduction.config;
 
-import bg.softuni.springbootintroduction.utils.enums.Role;
+import bg.softuni.springbootintroduction.domain.entity.enums.Role;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

@@ -7,7 +7,7 @@ import bg.softuni.springbootintroduction.domain.entity.UserRole;
 import bg.softuni.springbootintroduction.repositories.UserRepository;
 import bg.softuni.springbootintroduction.repositories.UserRoleRepository;
 import bg.softuni.springbootintroduction.services.UserService;
-import bg.softuni.springbootintroduction.utils.enums.Role;
+import bg.softuni.springbootintroduction.domain.entity.enums.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
