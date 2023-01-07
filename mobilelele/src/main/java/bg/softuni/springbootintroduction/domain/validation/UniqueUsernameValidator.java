@@ -18,7 +18,7 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
         return this.userRepository
-                .findUserByUsernameEquals(value)
+                .findUserByUsername(value)
                 .isEmpty();
     }
 }

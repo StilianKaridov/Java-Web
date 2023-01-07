@@ -55,8 +55,8 @@ public class OfferServiceImpl implements OfferService {
             Model model1 = this.modelRepository.findFirstByName(offer1.getModel());
             Model model2 = this.modelRepository.findFirstByName(offer2.getModel());
 
-            User seller1 = this.userRepository.findUserByUsernameEquals(offer1.getSeller()).get();
-            User seller2 = this.userRepository.findUserByUsernameEquals(offer2.getSeller()).get();
+            User seller1 = this.userRepository.findUserByUsername(offer1.getSeller()).get();
+            User seller2 = this.userRepository.findUserByUsername(offer2.getSeller()).get();
 
             toInsert.setModel(model1);
             toInsert.setSeller(seller1);
@@ -110,7 +110,7 @@ public class OfferServiceImpl implements OfferService {
         offer.setModel(model);
         offer.setCreated(Instant.now());
 
-        Optional<User> seller = this.userRepository.findUserByUsernameEquals(principal.getName());
+        Optional<User> seller = this.userRepository.findUserByUsername(principal.getName());
 
         seller.ifPresent(offer::setSeller);
 
@@ -121,7 +121,7 @@ public class OfferServiceImpl implements OfferService {
     public boolean isOwner(String username, Long id) {
         Optional<Offer> offerOpt = this.offerRepository.findById(id);
 
-        Optional<User> caller = this.userRepository.findUserByUsernameEquals(username);
+        Optional<User> caller = this.userRepository.findUserByUsername(username);
 
         if (offerOpt.isEmpty() || caller.isEmpty()) {
             return false;
