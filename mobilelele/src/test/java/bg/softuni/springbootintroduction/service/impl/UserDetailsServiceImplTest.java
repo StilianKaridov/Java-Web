@@ -29,14 +29,14 @@ class UserDetailsServiceImplTest {
     private UserDetailsService toTest;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.toTest = new UserDetailsServiceImpl(
                 mockedUserRepository
         );
     }
 
     @Test
-    public void test_LoadUserByUsername_UserExists() {
+    void test_LoadUserByUsername_UserExists() {
         User userEntity = new User(
                 "Peter01",
                 "peter",
@@ -68,7 +68,7 @@ class UserDetailsServiceImplTest {
     }
 
     @Test
-    public void test_LoadUserByUsername_UserDoesNotExist() {
+    void test_LoadUserByUsername_UserDoesNotExist() {
         String nonExistingUserUsername = "non-existing-user";
 
         assertThrows(

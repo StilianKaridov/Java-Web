@@ -44,7 +44,7 @@ class ModelServiceImplTest {
     private Model modelEntity;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         ModelMapper mapper = new ModelMapper();
 
         this.modelService = new ModelServiceImpl(
@@ -65,7 +65,7 @@ class ModelServiceImplTest {
     }
 
     @Test
-    public void test_FindModelByName_ModelExists() {
+    void test_FindModelByName_ModelExists() {
         when(
                 this.mockedModelRepository
                         .findFirstByName(this.modelEntity.getName())
@@ -82,7 +82,7 @@ class ModelServiceImplTest {
     }
 
     @Test
-    public void test_FindModelByName_ModelDoesNotExist() {
+    void test_FindModelByName_ModelDoesNotExist() {
         when(this.mockedModelRepository
                 .findFirstByName(INVALID_MODEL_NAME)
         ).thenReturn(null);
@@ -94,7 +94,7 @@ class ModelServiceImplTest {
     }
 
     @Test
-    public void test_GetModelWithManufacturingYears_ReturnsProperModel() {
+    void test_GetModelWithManufacturingYears_ReturnsProperModel() {
         when(
                 this.mockedModelRepository
                         .findFirstByName(this.modelEntity.getName())
