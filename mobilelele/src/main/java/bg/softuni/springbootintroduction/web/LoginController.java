@@ -12,20 +12,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/users")
 public class LoginController {
 
+    private static final String BAD_CREDENTIALS_LABEL = "badCredentials";
+    private static final String USERNAME_LABEL = "username";
+
     @GetMapping("/login")
     public String showLogin() {
         return "auth-login";
     }
 
     @PostMapping("/login-error")
-    public String failedLogin(
+    public String failedLogin (
             @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
             String username,
-            RedirectAttributes redirectAttributes
-    ) {
+            RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addFlashAttribute("badCredentials", true);
-        redirectAttributes.addFlashAttribute("username", username);
+        redirectAttributes.addFlashAttribute(BAD_CREDENTIALS_LABEL, true);
+        redirectAttributes.addFlashAttribute(USERNAME_LABEL, username);
 
         return "redirect:/users/login";
     }

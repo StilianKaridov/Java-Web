@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/brands")
 public class BrandController {
 
+    private static final String ATTRIBUTE_NAME = "brands";
+
     private final BrandService brandService;
 
     @Autowired
@@ -20,7 +22,7 @@ public class BrandController {
 
     @GetMapping("/all")
     public String showBrands(Model model) {
-        model.addAttribute("brands", brandService.getAllBrands());
+        model.addAttribute(ATTRIBUTE_NAME, brandService.getAllBrands());
 
         return "brands";
     }

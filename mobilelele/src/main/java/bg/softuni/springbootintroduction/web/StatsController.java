@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class StatsController {
 
+    private static final String VIEW_AND_OBJECT_NAME = "stats";
+
     private final StatsService statsService;
 
     public StatsController(StatsService statsService) {
@@ -18,8 +20,8 @@ public class StatsController {
     public ModelAndView statistics() {
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.addObject("stats", statsService.getStats());
-        modelAndView.setViewName("stats");
+        modelAndView.addObject(VIEW_AND_OBJECT_NAME, statsService.getStats());
+        modelAndView.setViewName(VIEW_AND_OBJECT_NAME);
 
         return modelAndView;
     }

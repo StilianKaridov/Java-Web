@@ -15,6 +15,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ModelServiceImpl implements ModelService {
 
+    private static final String BRAND_MERCEDES_NAME = "Mercedes-Benz";
+    private static final String BRAND_AUDI_NAME = "Audi";
+
+    private static final String MODEL_A4_NAME = "A4";
+    private static final String MODEL_CLS_NAME = "CLS-Class";
+
     private final ModelRepository modelRepository;
     private final BrandRepository brandRepository;
     private final ModelMapper mapper;
@@ -29,8 +35,8 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public void seedModels() {
         if (this.modelRepository.count() == 0) {
-            ModelImportDTO model1 = new ModelImportDTO("CLS-Class", Category.Car, 2011, "Mercedes-Benz");
-            ModelImportDTO model2 = new ModelImportDTO("A4", Category.Car, 2008, "Audi");
+            ModelImportDTO model1 = new ModelImportDTO(MODEL_CLS_NAME, Category.Car, 2011, BRAND_MERCEDES_NAME);
+            ModelImportDTO model2 = new ModelImportDTO(MODEL_A4_NAME, Category.Car, 2008, BRAND_AUDI_NAME);
 
             Model toInsert1 = this.mapper.map(model1, Model.class);
             Model toInsert2 = this.mapper.map(model2, Model.class);

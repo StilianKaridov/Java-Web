@@ -17,6 +17,9 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public class RegisterController {
 
+    private static final String USER_LABEL = "user";
+    private static final String BINDING_RESULT_LABEL = "org.springframework.validation.BindingResult.user";
+
     private final UserService userService;
 
     @Autowired
@@ -24,7 +27,7 @@ public class RegisterController {
         this.userService = userService;
     }
 
-    @ModelAttribute("user")
+    @ModelAttribute(USER_LABEL)
     public UserRegisterBindingModel initUserModel() {
         return new UserRegisterBindingModel();
     }
@@ -40,9 +43,8 @@ public class RegisterController {
                            RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("user", user);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user",
-                    bindingResult);
+            redirectAttributes.addFlashAttribute(USER_LABEL, user);
+            redirectAttributes.addFlashAttribute(BINDING_RESULT_LABEL, bindingResult);
 
             return "redirect:/users/register";
         }

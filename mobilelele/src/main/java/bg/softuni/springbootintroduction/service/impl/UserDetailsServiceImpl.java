@@ -16,6 +16,10 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    private static final String ROLE_PREFIX = "ROLE_";
+
+    private static final String EXCEPTION_MESSAGE = "User with name %s not found!";
+
     private final UserRepository userRepository;
 
     public UserDetailsServiceImpl(UserRepository userRepository) {
@@ -26,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = this.userRepository.
                 findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with name " + username + " not found!"));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(EXCEPTION_MESSAGE, username)));
 
         return mapToUserDetails(user);
     }
@@ -36,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         String userRole = user.getRole().getRole().name();
 
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + userRole));
+        authorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + userRole));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

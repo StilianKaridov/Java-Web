@@ -16,6 +16,9 @@ import java.util.List;
 @Service
 public class BrandServiceImpl implements BrandService {
 
+    private static final String BRAND_MERCEDES_NAME = "Mercedes-Benz";
+    private static final String BRAND_AUDI_NAME = "Audi";
+
     private final BrandRepository brandRepository;
     private final ModelMapper mapper;
 
@@ -28,8 +31,8 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public void seedBrands() {
         if (this.brandRepository.count() == 0) {
-            BrandImportDTO brand = new BrandImportDTO("Mercedes-Benz", Instant.now(), Instant.now());
-            BrandImportDTO brand2 = new BrandImportDTO("Audi", Instant.now(), Instant.now());
+            BrandImportDTO brand = new BrandImportDTO(BRAND_MERCEDES_NAME, Instant.now(), Instant.now());
+            BrandImportDTO brand2 = new BrandImportDTO(BRAND_AUDI_NAME, Instant.now(), Instant.now());
 
             Brand toInsert = this.mapper.map(brand, Brand.class);
             Brand toInsert2 = this.mapper.map(brand2, Brand.class);
