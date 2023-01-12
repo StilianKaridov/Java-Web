@@ -8,6 +8,7 @@ import bg.softuni.springbootintroduction.repository.ModelRepository;
 import bg.softuni.springbootintroduction.repository.OfferRepository;
 import bg.softuni.springbootintroduction.repository.UserRepository;
 import bg.softuni.springbootintroduction.repository.UserRoleRepository;
+import bg.softuni.springbootintroduction.service.exceptions.OfferNotFoundException;
 import bg.softuni.springbootintroduction.utils.enums.Category;
 import bg.softuni.springbootintroduction.utils.enums.Engine;
 import bg.softuni.springbootintroduction.utils.enums.Role;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.time.Instant;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -219,5 +221,16 @@ class OfferControllerTest {
                 .andExpect(flash().attributeExists("org.springframework.validation.BindingResult.offerUpdate"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/offers/update/" + testOffer.getId() + "/errors"));
+    }
+
+    @Test
+    void test_handleOfferException() throws Exception {
+        long invalidId = this.offerRepository.count() + 1;
+
+        mockMvc.perform(get("/offers/details/" + invalidId))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof OfferNotFoundException))
+                .andExpect(view().name("offer-not-found"))
+                .andExpect(model().attributeExists("offerId"));
     }
 }
