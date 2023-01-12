@@ -1,5 +1,6 @@
 package bg.softuni.springbootintroduction.web;
 
+import bg.softuni.springbootintroduction.domain.entity.User;
 import bg.softuni.springbootintroduction.domain.entity.UserRole;
 import bg.softuni.springbootintroduction.repository.UserRepository;
 import bg.softuni.springbootintroduction.repository.UserRoleRepository;
@@ -12,6 +13,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -82,6 +87,17 @@ class RegisterControllerTest {
                         .with(csrf())
                 ).andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(HOMEPAGE_URL));
+
+        assertEquals(1, userRepository.count());
+
+        Optional<User> newlyCreatedUserOpt = userRepository.findUserByUsername(USER_USERNAME);
+
+        assertTrue(newlyCreatedUserOpt.isPresent());
+
+        User newlyCreatedUser = newlyCreatedUserOpt.get();
+
+        assertEquals(USER_LAST_NAME, newlyCreatedUser.getLastName());
+        assertEquals(USER_USERNAME, newlyCreatedUser.getUsername());
     }
 
     @Test
