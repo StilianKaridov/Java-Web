@@ -24,11 +24,11 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        this.brandService.seedBrands();
-        this.modelService.seedModels();
-        this.userRoleService.seedUserRoles();
-        this.userService.seedUsers();
-        this.offerService.seedOffers();
+    public void run(String... args) {
+//        this.brandService.seedBrands();
+//        this.modelService.seedModels();
+//        this.userRoleService.seedUserRoles();
+//        this.userService.seedUsers();
+//        this.offerService.seedOffers();
     }
 }
