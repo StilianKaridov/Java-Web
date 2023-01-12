@@ -21,7 +21,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -52,15 +51,11 @@ class OfferControllerTest {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    private Model testModel;
-
-    private User testUser;
-
     private Offer testOffer;
 
     @BeforeEach
     void setUp() {
-        testModel = new Model();
+        Model testModel = new Model();
         testModel.setName("A4");
         testModel.setCategory(Category.Car);
         testModel.setStartYear(2010);
@@ -74,7 +69,7 @@ class OfferControllerTest {
         userRoleRepository.save(adminRole);
         userRoleRepository.save(userRole);
 
-        testUser = new User();
+        User testUser = new User();
         testUser.setUsername("loggedInUser");
         testUser.setPassword("testPassword");
         testUser.setFirstName("Logged");
