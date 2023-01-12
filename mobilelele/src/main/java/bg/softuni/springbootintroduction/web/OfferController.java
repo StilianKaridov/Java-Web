@@ -150,7 +150,7 @@ public class OfferController {
     }
 
     @ExceptionHandler(OfferNotFoundException.class)
-    public ModelAndView handleOfferException(OfferNotFoundException e){
+    public ModelAndView handleOfferException(OfferNotFoundException e) {
         ModelAndView modelAndView = new ModelAndView("offer-not-found");
         modelAndView.addObject(ATTRIBUTE_OFFER_ID_LABEL, e.getId());
         modelAndView.setStatus(e.getClass().getAnnotation(ResponseStatus.class).value());
