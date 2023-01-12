@@ -19,7 +19,8 @@ import java.time.Instant;
 @Table(name = "offers")
 public class Offer extends BaseEntity {
 
-    @Column(columnDefinition = "text")
+    @Lob
+    @Column
     private String description;
 
     @Enumerated(EnumType.STRING)
