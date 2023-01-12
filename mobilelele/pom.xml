@@ -9,10 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>bg.softuni</groupId>
-    <artifactId>SpringBootIntroduction</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>SpringBootIntroduction</name>
-    <description>SpringBootIntroduction</description>
+    <artifactId>Mobilelele</artifactId>
+    <name>Mobilelele</name>
+    <description>Mobilelele</description>
     <properties>
         <java.version>11</java.version>
     </properties>
