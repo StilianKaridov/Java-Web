@@ -1,7 +1,11 @@
 package bg.softuni.springbootintroduction.web;
 
+import bg.softuni.springbootintroduction.domain.entity.UserRole;
 import bg.softuni.springbootintroduction.repository.UserRepository;
+import bg.softuni.springbootintroduction.repository.UserRoleRepository;
+import bg.softuni.springbootintroduction.utils.enums.Role;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -44,9 +48,21 @@ class RegisterControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
+    @BeforeEach
+    void setUp() {
+        UserRole roleAdmin = new UserRole(Role.ADMIN);
+        UserRole roleUser = new UserRole(Role.USER);
+
+        userRoleRepository.save(roleAdmin);
+        userRoleRepository.save(roleUser);
+    }
+
     @AfterEach
     void tearDown() {
-        userRepository.deleteUserByUsername(USER_USERNAME);
+        userRepository.deleteAll();
     }
 
     @Test
