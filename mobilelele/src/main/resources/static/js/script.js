@@ -5,6 +5,7 @@ async function callback(url) {
     var data = await response.json();
 
     let yearInput = document.getElementById("year");
+    yearInput.value = data.startYear;
     yearInput.setAttribute("min", data.startYear);
     yearInput.setAttribute("max", data.endYear);
 }
